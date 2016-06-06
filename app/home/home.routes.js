@@ -3,7 +3,7 @@ export default function routes($stateProvider) {
     .state('home', {
       url: '/:user',
       template: require('./home.html'),
-      controller: 'TabController',
-      controllerAs: 'tabController'
+      controller: 'toDoController',
+      controllerAs: 'toDoController'
     })
 }

@@ -1,13 +1,22 @@
-export default class TabController{
+export default class toDoController{
     constructor($scope,$stateParams,$firebaseObject,toDoService){
         //this.toDos= [];
         this.user = $stateParams.user;
         console.log(this.user);
         this.toDos = toDoService.getAll();
         console.log(this.toDos);
+        this.isMarked = false;
+        console.log("loaded");
+        console.log(this.toDos.$loaded);
+        this.toDos.$loaded().then(this.setStatictics.bind(this));
+        this.toDos.$watch(this.setStatictics.bind(this));
+        console.log(this.toDos);
         this.toDoService = toDoService;
         this.editToDo = null;
         console.log(this.toDos);
+        this.userAll = 0;
+        this.userCompleted = 0;
+        this.userIncompleted = 0;
         this.userFilter = {};
     }
     
@@ -61,10 +70,12 @@ export default class TabController{
         this.toDoService.remove(toDo);
     }
     
-    markAll(isChecked){
+    markAll(){
+        this.isMarked = !this.isMarked;
         for(var i=0;i<this.toDos.length;i++){
             if(this.canProcessElement(this.toDos[i])){
-                this.toDos[i].completed = isChecked;
+                console.log(this.toDos[i]);
+                this.toDos[i].completed = this.isMarked;
                 this.stopEditing(this.toDos[i]);
             }
         }
@@ -87,7 +98,23 @@ export default class TabController{
         for(var i=0;i<this.toDos.length;i++){
             if(this.canProcessElement(this.toDos[i]) && this.toDos[i].completed == true){
                 this.removeToDo(this.toDos[i]);
+                this.stopEditing(this.toDos[i]);
             }
+        }
+    }
+    
+    setStatictics(){
+        this.userAll = 0;
+        this.userCompleted = 0;
+
+        for(var i=0;i<this.toDos.length;i++){
+            if(this.user == this.toDos[i].user){
+                this.userAll = this.userAll + 1;
+                if(this.toDos[i].completed) {
+                    this.userCompleted = this.userCompleted + 1;
+                }
+            }
+            this.userIncompleted = this.userAll - this.userCompleted;
         }
     }
 }
