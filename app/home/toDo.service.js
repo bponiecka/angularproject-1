@@ -1,7 +1,7 @@
 export default class toDoService {
-    constructor($firebaseObject)
+    constructor($firebaseArray)
     {
-        this.firebaseObject = $firebaseObject;
+        this.firebaseArray = $firebaseArray;
         this.ref = new Firebase("https://angular-vavelsky.firebaseio.com/");
         this.ref.push({
            'user': 'testuser1',
@@ -15,17 +15,23 @@ export default class toDoService {
         }); 
     }
     
-    getAll()
-    {
-        return this.firebaseObject(this.ref);
+    getAll(){
+        return this.items;
     }
     
-    add(value)
-    {
-        this.ref.push({
+    add(value){
+        this.items.$add({
            'user': value.user,
            'title': value.title,
            'completed': value.completed
         }); 
+    }
+    
+    edit(value){
+        this.items.$save(value);
+    }
+    
+    remove(value){
+        this.items.$remove(ref);
     }
 };

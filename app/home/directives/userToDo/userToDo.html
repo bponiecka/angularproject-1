@@ -5,21 +5,24 @@
         </form>
     </header>
     <section>
-        <input id="toggle-all" type="checkbox" ng-model="allChecked" ng-click="markAll(allChecked)">
         
-            <li ng-repeat="toDo in tabController.toDos  | filter:tabController.statusFilter">
-                <input data-toggle="toggle" ng-show="toDo.value.user == tabController.user" type="checkbox" ng-model="toDo.value.completed" ng-change="toggleCompleted(toDo)">
-                <span ng-hide="toDo.editing" ng-dblclick="tabController.editToDo(toDo)">{{todo.value.title}}</span>
+        
+            <li ng-repeat="todo in tabController.todos | filter:tabController.statusFilter" class="list-group">
+                <div class="list-group-item">
+                <input data-toggle="toggle" ng-show="toDo.user == tabController.user" type="checkbox" ng-model="toDo.completed" ng-change="toggleCompleted(toDo)">
+                <span ng-hide="toDo == tabController.editingToDo" ng-dblclick="tabController.editToDo(toDo)">{{todo.title}}</span>
                 <form ng-submit="tabController.doneEditing(todo)">
-                <input ng-show="toDo.editing" ng-model="toDo.value.title" ng-blur="tabController.stopEditing(toDo)" autofocus />
+                <input ng-show="toDo == tabController.editingToDo" ng-model="toDo.title" ng-blur="tabController.stopEditing(toDo)" autofocus />
                 </form>
-                <span>{{toDo.value.user}}</span>
-                <button class="btn btn-danger" ng-show="todo.value.user == tabController.user" ng-click="tabController.removeTodo(toDo)">Delete it!</button>
+                <span>{{toDo.user}}</span>
+                <button class="btn btn-danger" ng-show="todo.user == tabController.user" ng-click="tabController.removeTodo(toDo)">Delete it!</button>
+                </div>
             </li>
         </ul>
     </section>
 </section>
 <footer>
+    <input id="toggle-all" ng-model="allMarked" type="checkbox" ng-click="tabController.markAll(allMarked)">
     <ul id="filters">
         <li>
      	<button class="btn btn-success"><a ng-click="tabController.onChangeStatus('')">All</a></button>

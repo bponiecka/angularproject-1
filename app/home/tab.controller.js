@@ -1,9 +1,11 @@
 export default class TabController{
     constructor($scope,$stateParams,$firebaseObject,toDoService){
-        this.toDos= [];
+        //this.toDos= [];
         this.user = $stateParams.user;
-        this.data = toDoService.getAll();
+        this.toDos = toDoService.getAll();
         this.toDoService = toDoService;
+        this.editToDo = null;
+        console.log(this.tuDos);
     }
     
     addToDo(){
@@ -28,23 +30,29 @@ export default class TabController{
     
     onChangeStatus(status){
         this.statusFilter = (status === 'active') ?
-  				{ value:{completed: false }} : (status === 'completed') ?
-  				{ value:{completed: true }} : {};
+  				{ completed: false } : (status === 'completed') ?
+  				{ completed: true } : {};
     }
     
     editToDo(toDo){
-        toDo.editing=!toDo.editing;
-        this.originalToDo=toDo;
+        this.editingToDo=toDo;
     }
     
     stopEditing(toDo){
-        toDo.editing=false;
-        console.log(toDo.editing);
+        this.editingToDo=null;
+        this.toDoService.edit(toDo);
     }
     
     removeToDo(toDo){
-        var index = this.toDos.indexOf(toDo);
-        this.toDos.splice(index,1);
+        this.toDoService.remove(toDo);
+    }
+    
+    markAll(isChecked){
+        for(var i=0;i<this.todos.length;i++){
+            if(this.todos[i].user == this.user){
+                this.todos[i].completed = isChecked;
+            }
+        }
     }
     
     onUser(){
