@@ -1,15 +1,15 @@
-<div class="col-md-12 well text-center">
+<div class="col-md-6 well text-center">
     <div class="input-group input-group-lg">
       <input 
         ng-model="tabController.selectedUser" 
         type="text" 
-        class="form-control text-center" 
-        placeholder="Login"
+        class="form-control text-left" 
+        placeholder="User"
       />
         
       <span class="input-group-btn">
         <button 
-          class="btn btn-info" 
+          class="btn btn-success" 
           type="button" 
           ui-sref="home({user: tabController.selectedUser})">Szukaj trufli!</button>
       </span>

@@ -2,9 +2,9 @@
     <user-input></user-input>
     
     <div>
-        <div ng-show="TabController.user">
-        <div class="list-group">
-            <a href="" class="list-group-item" ng-click="tabController.onUser()"> {{TabController.user}}'s To Do</a>
+        <div ng-show="tabController.user">
+        <div class="list-group col-md-6">
+            <a href="" class="list-group-item" ng-click="tabController.onUser()"> {{tabController.user}}'s To Do</a>
             <a href="" class="list-group-item" ng-click="tabController.onAll()"> All</a>
         </div>
     </div>
@@ -18,7 +18,7 @@
                 </div>
             </div>
         </div>
-        <li ng-repeat="item in tabController.data">
+        <li ng-repeat="item in tabController.data" class="col-md-12">
             <span>{{item.user}}</span>
         </li>
 </div>
