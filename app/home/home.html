@@ -4,8 +4,9 @@
     <div>
         <div ng-show="tabController.user">
         <div class="list-group col-md-6">
-            <a href="" class="list-group-item" ng-click="tabController.onUser()"> {{tabController.user}}'s To Do</a>
-            <a href="" class="list-group-item" ng-click="tabController.onAll()"> All</a>
+            <a href="" class="list-group-item" ng-click="tabController.onUser()"> Show results</a>
+            <a href="" class="list-group-item" ng-click="tabController.onChangeTab('user')"> {{tabController.user}}'s To Dos<span class="badge">2</span></a>
+            <a href="" class="list-group-item" ng-click="tabController.onChangeTab('all')"> All To Dos<span class="badge">12</span></a>
         </div>
     </div>
         

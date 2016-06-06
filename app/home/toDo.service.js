@@ -1,18 +1,10 @@
+/*global Firebase */
 export default class toDoService {
     constructor($firebaseArray)
     {
         this.firebaseArray = $firebaseArray;
         this.ref = new Firebase("https://angular-vavelsky.firebaseio.com/");
-        this.ref.push({
-           'user': 'testuser1',
-           'title':'testtitle1',
-           'completed':'false'
-        });
-        this.elementref = this.ref.push({
-           'user': 'testuser2',
-           'title':'testtitle2',
-           'completed':'false'
-        }); 
+        this.items = $firebaseArray(this.ref); 
     }
     
     getAll(){
@@ -20,6 +12,7 @@ export default class toDoService {
     }
     
     add(value){
+        console.log(value);
         this.items.$add({
            'user': value.user,
            'title': value.title,
@@ -28,10 +21,12 @@ export default class toDoService {
     }
     
     edit(value){
+        console.log("editsave");
         this.items.$save(value);
+        console.log("saved");
     }
     
-    remove(value){
+    remove(ref){
         this.items.$remove(ref);
     }
 };

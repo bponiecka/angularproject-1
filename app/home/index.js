@@ -3,8 +3,8 @@ import uirouter from 'angular-ui-router';
 import routing from './home.routes';
 
 import userInput from './directives/userinput';
-import userToDo from './directives/toDos';
-import toDos from './directives/userToDo';
+import userToDo from './directives/userToDo';
+import toDos from './directives/toDos';
 
 import TabController from './tab.controller';
 

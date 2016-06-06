@@ -2,19 +2,23 @@ export default class TabController{
     constructor($scope,$stateParams,$firebaseObject,toDoService){
         //this.toDos= [];
         this.user = $stateParams.user;
+        console.log(this.user);
         this.toDos = toDoService.getAll();
+        console.log(this.toDos);
         this.toDoService = toDoService;
         this.editToDo = null;
-        console.log(this.tuDos);
+        console.log(this.toDos);
+        this.userFilter = {};
     }
     
     addToDo(){
+        console.log("jestem w add");
         this.toDoService.add({
-            value:{
+            
              user:this.user,
              title:this.userText,
              completed:false
-            }
+            
          });
          /*
         this.toDos.push({
@@ -34,13 +38,23 @@ export default class TabController{
   				{ completed: true } : {};
     }
     
-    editToDo(toDo){
-        this.editingToDo=toDo;
+    onChangeTab(userTab){
+        if(userTab == 'all'){
+            this.userFilter = {};
+        } else {
+            this.userFilter = {user: this.user};
+        }
+    }
+    
+    editToDo1(toDo){
+        console.log("editToDo");
+        this.editToDo=toDo;
     }
     
     stopEditing(toDo){
-        this.editingToDo=null;
+        this.editToDo=null;
         this.toDoService.edit(toDo);
+        console.log(toDo);
     }
     
     removeToDo(toDo){
@@ -48,11 +62,17 @@ export default class TabController{
     }
     
     markAll(isChecked){
-        for(var i=0;i<this.todos.length;i++){
-            if(this.todos[i].user == this.user){
-                this.todos[i].completed = isChecked;
+        for(var i=0;i<this.toDos.length;i++){
+            if(this.canProcessElement(this.toDos[i])){
+                this.toDos[i].completed = isChecked;
+                this.stopEditing(this.toDos[i]);
             }
         }
+        
+    }
+    
+    canProcessElement(toDo){
+        return toDo.user == this.user;
     }
     
     onUser(){
@@ -61,5 +81,13 @@ export default class TabController{
     
     onAll(){
         this.selectedTab = 'all';
+    }
+    
+    clearAllCompleted(){
+        for(var i=0;i<this.toDos.length;i++){
+            if(this.canProcessElement(this.toDos[i]) && this.toDos[i].completed == true){
+                this.removeToDo(this.toDos[i]);
+            }
+        }
     }
 }

@@ -1,37 +1,41 @@
 <section class="row">
     <header>
         <form id="toDo-form" ng-submit="tabController.addToDo()">
-            <input id="new-toDo" class="form-control text-center" placeholder="Add to-do position" ng-model="tabController.userText" ng-disable="saving" />
+            <input id="new-toDo" class="form-control text-center input-lg" placeholder="Add to-do position" ng-model="tabController.userText" ng-disable="saving" />
         </form>
+    <!--
+    <div class="text-center">   
+    <button class="btn btn-default"><a ng-click="tabController.onChangeTab('user')">Your tasks</a></button>
+    <button class="btn btn-default"><a ng-click="tabController.onChangeTab('all')">All tasks</a></button>
+    </div> 
+    -->
     </header>
     <section>
         
         
-            <li ng-repeat="todo in tabController.todos | filter:tabController.statusFilter" class="list-group">
+            <li ng-repeat="todo in tabController.toDos | filter:tabController.statusFilter | filter:tabController.userFilter" class="list-group">
                 <div class="list-group-item">
-                <input data-toggle="toggle" ng-show="toDo.user == tabController.user" type="checkbox" ng-model="toDo.completed" ng-change="toggleCompleted(toDo)">
-                <span ng-hide="toDo == tabController.editingToDo" ng-dblclick="tabController.editToDo(toDo)">{{todo.title}}</span>
-                <form ng-submit="tabController.doneEditing(todo)">
-                <input ng-show="toDo == tabController.editingToDo" ng-model="toDo.title" ng-blur="tabController.stopEditing(toDo)" autofocus />
+                <input data-toggle="toggle" ng-show="todo.user == tabController.user" type="checkbox" ng-model="todo.completed" ng-change="tabController.stopEditing(todo)">
+                <span ng-hide="todo == tabController.editToDo" ng-dblclick="tabController.editToDo1(todo)">{{todo.title}}</span>
+                <form ng-submit="tabController.stopEditing(todo)">
+                <input ng-show="todo == tabController.editToDo" ng-model="todo.title" ng-blur="tabController.stopEdit1(todo)" autofocus />
                 </form>
                 <span>{{toDo.user}}</span>
-                <button class="btn btn-danger" ng-show="todo.user == tabController.user" ng-click="tabController.removeTodo(toDo)">Delete it!</button>
+                <button class="btn btn-danger" ng-show="todo.user == tabController.user" ng-click="tabController.removeToDo(todo)">Delete it!</button>
                 </div>
             </li>
-        </ul>
+        
     </section>
 </section>
 <footer>
     <input id="toggle-all" ng-model="allMarked" type="checkbox" ng-click="tabController.markAll(allMarked)">
-    <ul id="filters">
-        <li>
-     	<button class="btn btn-success"><a ng-click="tabController.onChangeStatus('')">All</a></button>
-     	</li>
-     	<li>
-     	<button class="btn btn-success"><a ng-click="tabController.onChangeStatus('active')">Active</a></button>
-     	</li>
-     	<li>
-     	<button class="btn btn-success"><a ng-click="tabController.onChangeStatus('completed')">Completed</a></button>
-     	</li>
-    </ul>
+    
+     	    <button class="btn btn-info"><a ng-click="tabController.onChangeStatus('')">All</a></button>
+   
+     	    <button class="btn btn-info"><a ng-click="tabController.onChangeStatus('active')">Active</a></button>
+
+     	    <button class="btn btn-success"><a ng-click="tabController.onChangeStatus('completed')">Completed</a></button>
+
+     	    <button class="btn btn-default"><a ng-click="tabController.clearAllCompleted()">Clear Completed</a></button>
+
  </footer>
