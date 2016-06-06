@@ -9,15 +9,15 @@ import toDos from './directives/userToDo';
 import TabController from './tab.controller';
 
 import 'firebase';
-import angularfire from 'angularfire';
+import angularFire from 'angularfire';
 
 import toDoService from './toDo.service';
 
-export default angular.module('app.home',[uirouter,angularfire])
+export default angular.module('app.home',[uirouter,angularFire])
 .config(routing)
 .controller('TabController',TabController)
 .directive('userInput', userInput)
 .directive('userToDo', userToDo)
 .directive('toDos', toDos)
-.service('ToDoService', toDoService)
+.service('toDoService', toDoService)
 .name;

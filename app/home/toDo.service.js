@@ -1,4 +1,4 @@
-export default class toDoService{
+export default class toDoService {
     constructor($firebaseObject)
     {
         this.firebaseObject = $firebaseObject;
