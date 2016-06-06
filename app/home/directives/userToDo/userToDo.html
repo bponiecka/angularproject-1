@@ -1,18 +1,33 @@
 <section class="row">
     <header>
-        <form i="toDo-form" ng-submit="tabController.addToDo()">
-            <input id="newToDo" class="form-control text-center" 
-            placeholder="Add to-do position" ng-model="tabController.userText" ng-disable="saving" />
+        <form id="toDo-form" ng-submit="tabController.addToDo()">
+            <input id="new-toDo" class="form-control text-center" placeholder="Add to-do position" ng-model="tabController.userText" ng-disable="saving" />
         </form>
     </header>
     <section>
         <input id="toggle-all" type="checkbox" ng-model="allChecked" ng-click="markAll(allChecked)">
-        <ul id="toDo-list" class="list-group">
-            <li ng-repeat="toDo in tabController.toDos" class="list-group-item">
-                <input data-toggle="toggle" type="checkbox" ng-model="toDo.completed" ng-chnge="toggleCompleted(toDo)" />
-                <label ng-dbclick="editToDo(toDo)">{{toDo.title}}</label>
-                <button class="destroy" ng-click="tabController.removeToDo(toDo)"></button>
+        
+            <li ng-repeat="toDo in tabController.toDos"  | filter:tabController.statusFilter">
+                <input data-toggle="toggle" type="checkbox" ng-model="toDo.value.completed" ng-change="toggleCompleted(toDo)">
+                <span ng-hide="toDo.editing" ng-dblclick="tabController.editToDo(toDo)">{{todo.value.title}}</span>
+                <form ng-submit="tabController.doneEditing(todo)">
+                <input ng-show="toDo.editing" ng-model="toDo.value.title" ng-blur="tabController.stopEditing(toDo)" autofocus />
+                </form>
+                <button class="destroy" ng-click="tabController.removeTodo(todo)">Delete it!</button>
             </li>
         </ul>
     </section>
 </section>
+<footer>
+    <ul id="filters">
+        <li>
+     	<a ng-click="tabController.onChangeStatus('')">All</a>
+     	</li>
+     	<li>
+     	<a ng-click="tabController.onChangeStatus('active')">Active</a>
+     	</li>
+     	<li>
+     	<a ng-click="tabController.onChangeStatus('completed')">Completed</a>
+     	</li>
+    </ul>
+ </footer>
