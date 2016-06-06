@@ -1,0 +1,18 @@
+<section class="row">
+    <header>
+        <form i="toDo-form" ng-submit="tabController.addToDo()">
+            <input id="newToDo" class="form-control text-center" 
+            placeholder="Add to-do position" ng-model="tabController.userText" ng-disable="saving" />
+        </form>
+    </header>
+    <section>
+        <input id="toggle-all" type="checkbox" ng-model="allChecked" ng-click="markAll(allChecked)">
+        <ul id="toDo-list" class="list-group">
+            <li ng-repeat="toDo in tabController.toDos" class="list-group-item">
+                <input data-toggle="toggle" type="checkbox" ng-model="toDo.completed" ng-chnge="toggleCompleted(toDo)" />
+                <label ng-dbclick="editToDo(toDo)">{{toDo.title}}</label>
+                <button class="destroy" ng-click="tabController.removeToDo(toDo)"></button>
+            </li>
+        </ul>
+    </section>
+</section>
