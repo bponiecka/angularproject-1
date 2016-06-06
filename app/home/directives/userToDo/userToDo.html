@@ -8,12 +8,13 @@
         <input id="toggle-all" type="checkbox" ng-model="allChecked" ng-click="markAll(allChecked)">
         
             <li ng-repeat="toDo in tabController.toDos"  | filter:tabController.statusFilter">
-                <input data-toggle="toggle" type="checkbox" ng-model="toDo.value.completed" ng-change="toggleCompleted(toDo)">
+                <input data-toggle="toggle" ng-show="todo.value.user == tabController.user" type="checkbox" ng-model="toDo.value.completed" ng-change="toggleCompleted(toDo)">
                 <span ng-hide="toDo.editing" ng-dblclick="tabController.editToDo(toDo)">{{todo.value.title}}</span>
                 <form ng-submit="tabController.doneEditing(todo)">
                 <input ng-show="toDo.editing" ng-model="toDo.value.title" ng-blur="tabController.stopEditing(toDo)" autofocus />
                 </form>
-                <button class="destroy" ng-click="tabController.removeTodo(todo)">Delete it!</button>
+                <span>{{todo.value.user}}</span>
+                <button class="destroy" ng-show="todo.value.user == tabController.user" ng-click="tabController.removeTodo(todo)">Delete it!</button>
             </li>
         </ul>
     </section>

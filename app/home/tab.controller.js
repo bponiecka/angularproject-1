@@ -1,10 +1,18 @@
 export default class TabController{
-    constructor($scope,$stateParams){
+    constructor($scope,$stateParams,$firebaseObject, toDoService){
         this.toDos= [];
         this.user = $stateParams.user;
+        this.data = toDoService.getAll();
+        this.toDoService = toDoService;
     }
     
     addToDo(){
+        this.ToDoService.add({
+             user: this.user,
+             title: this.userText,
+             completed:false
+         });
+         /*
         this.toDos.push({
             value:{
                 user:this.user,
@@ -13,6 +21,7 @@ export default class TabController{
             },
             editing:false
         });
+        */
     }
     
     onChangeStatus(status){
